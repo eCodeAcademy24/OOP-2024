@@ -17,6 +17,43 @@
 #include <cstring>
 using namespace std;
 
+class Ekipa{
+protected:
+    char ime[15];
+    int porazi;
+    int pobedi;
+public:
+    Ekipa(char *ime ="", int porazi = 0, int pobedi = 0){
+        strcpy(this->ime, ime);
+        this->porazi = porazi;
+        this->pobedi = pobedi;
+    }
+
+    void pecati(){
+        cout << "Ime: " << ime << " Pobedi: " << pobedi << " Porazi: " << porazi;
+    }
+};
+
+class FudbalskaEkipa: public Ekipa{
+    int crveni;
+    int zolti;
+    int nereseni;
+public:
+    FudbalskaEkipa(char *ime, int pobedi, int porazi, int crveni, int zolti, int nereseni) : Ekipa(ime, porazi, pobedi){
+        this->crveni = crveni;
+        this->zolti = zolti;
+        this->nereseni = nereseni;
+    }
+
+    int poeni(){
+        return pobedi * 3 + nereseni;
+    }
+
+    void pecati(){
+        Ekipa :: pecati();
+        cout << " Nereseni: " << nereseni << " Poeni: " << poeni() << endl;
+    }
+};
 int main() {
     char ime[15];
     int pob,por,ck,zk,ner;
@@ -25,4 +62,5 @@ int main() {
     f1.pecati();
     return 0;
 }
+
 
