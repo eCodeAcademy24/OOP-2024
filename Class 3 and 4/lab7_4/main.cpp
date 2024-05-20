@@ -1,5 +1,3 @@
-#include<iostream>
-using namespace std;
 //Да се дефинира класа Vozilo која ќе содржи информација за неговата маса (децимален број), ширина и висина (цели броеви).
 //
 //Од оваа класа да се изведе класата Автомобил во која како дополнителна информација се чува информацијата за бројот на врати (цел број).
@@ -25,6 +23,154 @@ using namespace std;
 //
 //Во класата ParkingPlac да се додаде следната функција: - функција int vratiDnevnaZarabotka() со која се враќа дневната заработка од сите возила на паркингот.
 //вашиот код треба да биде тука
+
+#include <iostream>
+using namespace std;
+
+class Vozilo {
+protected:
+    float masa;
+    int shirina;
+    int visina;
+public:
+    Vozilo(float masa, int shirina, int visina) {
+        this->masa = masa;
+        this->shirina = shirina;
+        this->visina = visina;
+    }
+
+    float getMasa() { return masa; }
+    int getShirina() { return shirina; }
+    int getVisina() { return visina; }
+
+    virtual int vratiDnevnaCena() = 0;
+};
+
+class Avtomobil : public Vozilo {
+private:
+    int brojVrati;
+public:
+    Avtomobil(float masa, int shirina, int visina, int brojVrati) : Vozilo(masa, shirina, visina) {
+        this->brojVrati = brojVrati;
+    }
+
+    int getBrojVrati() { return brojVrati; }
+
+    int vratiDnevnaCena() override {
+        if (brojVrati < 5)
+            return 100;
+        else
+            return 130;
+    }
+};
+
+class Avtobus : public Vozilo {
+private:
+    int brojPatnici;
+public:
+    Avtobus(float masa, int shirina, int visina, int brojPatnici) : Vozilo(masa, shirina, visina) {
+        this->brojPatnici = brojPatnici;
+    }
+
+    int getBrojPatnici() { return brojPatnici; }
+
+    int vratiDnevnaCena() override {
+        return brojPatnici * 5;
+    }
+};
+
+class Kamion : public Vozilo {
+private:
+    float nosivost;
+public:
+    Kamion(float masa, int shirina, int visina, float nosivost) : Vozilo(masa, shirina, visina) {
+        this->nosivost = nosivost;
+    }
+
+    float getNosivost() { return nosivost; }
+
+    int vratiDnevnaCena() override {
+        return (masa + nosivost) * 0.02;
+    }
+};
+
+class ParkingPlac {
+private:
+    Vozilo** vozila;
+    int brojVozila;
+public:
+    ParkingPlac(){
+        this->vozila = nullptr;
+        this->brojVozila = 0;
+    }
+
+    ~ParkingPlac() {
+        delete[] vozila;
+    }
+
+    void operator+=(Vozilo* v) {
+        Vozilo** temp = new Vozilo*[brojVozila + 1];
+        for (int i = 0; i < brojVozila; i++) {
+            temp[i] = vozila[i];
+        }
+        temp[brojVozila] = v;
+        delete[] vozila;
+        vozila = temp;
+        brojVozila++;
+    }
+
+    // Пресметување на вкупната маса на сите возила
+    float presmetajVkupnaMasa() {
+        float vkupnaMasa = 0;
+        for (int i = 0; i < brojVozila; i++) {
+            vkupnaMasa += vozila[i]->getMasa();
+        }
+        return vkupnaMasa;
+    }
+
+    // Пресметување на бројот на возила пошироки од дадената вредност
+    int brojVozilaPoshirokiOd(int l) {
+        int brojPoshiroki = 0;
+        for (int i = 0; i < brojVozila; i++) {
+            if (vozila[i]->getShirina() > l)
+                brojPoshiroki++;
+        }
+        return brojPoshiroki;
+    }
+
+    // Печатење на информации за бројот на автомобили, автобуси и камиони
+    void pecati() {
+        int brojAvtomobili = 0, brojAvtobusi = 0, brojKamioni = 0;
+        for (int i = 0; i < brojVozila; i++) {
+            if (dynamic_cast<Avtomobil*>(vozila[i]))
+                brojAvtomobili++;
+            else if (dynamic_cast<Avtobus*>(vozila[i]))
+                brojAvtobusi++;
+            else if (dynamic_cast<Kamion*>(vozila[i]))
+                brojKamioni++;
+        }
+        cout << "Brojot na avtomobili e " << brojAvtomobili << ", brojot na avtobusi e " << brojAvtobusi << " i brojot na kamioni e " << brojKamioni << "." << endl;
+    }
+
+    // Пресметување на бројот на камиони со носивост поголема од масата на предаденото возило
+    int pogolemaNosivostOd(Vozilo& v) {
+        int brojKamioni = 0;
+        for (int i = 0; i < brojVozila; i++) {
+            Kamion* kamion = dynamic_cast<Kamion*>(vozila[i]);
+            if (kamion && kamion->getNosivost() > v.getMasa())
+                brojKamioni++;
+        }
+        return brojKamioni;
+    }
+
+    // Пресметување на дневната заработка од сите возила на паркингот
+    int vratiDnevnaZarabotka() {
+        int zarabotka = 0;
+        for (int i = 0; i < brojVozila; i++)
+            zarabotka += vozila[i]->vratiDnevnaCena();
+        return zarabotka;
+    }
+};
 
 int main(){
 ParkingPlac p;

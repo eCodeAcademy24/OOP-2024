@@ -1,0 +1,3 @@
+C:/Users/Slavcho/Desktop/Business/eCode/Object-oriented Programming/Group 1/Class 5/lab7_7/cmake-build-debug/CMakeFiles/lab7_7.dir
+C:/Users/Slavcho/Desktop/Business/eCode/Object-oriented Programming/Group 1/Class 5/lab7_7/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Slavcho/Desktop/Business/eCode/Object-oriented Programming/Group 1/Class 5/lab7_7/cmake-build-debug/CMakeFiles/rebuild_cache.dir
