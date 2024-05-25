@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Slavcho/Desktop/Business/eCode/Object-oriented Programming/Group 1/Class 6/lab8_2
+# Install script for directory: C:/Users/Slavcho/Desktop/Business/eCode/Object-oriented Programming/Group 1/Class 6 (multipart inheritance)/lab8_2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Slavcho/Desktop/Business/eCode/Object-oriented Programming/Group 1/Class 6/lab8_2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Slavcho/Desktop/Business/eCode/Object-oriented Programming/Group 1/Class 6 (multipart inheritance)/lab8_2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
